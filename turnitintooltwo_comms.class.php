@@ -206,4 +206,21 @@ class turnitintooltwo_comms {
     public function set_diagnostic($diagnostic) {
         $this->diagnostic = $diagnostic;
     }
+
+    /**
+     * Make sure we can get a connection to the Turnitin API.
+     *
+     * @return boolean True if we can connect, else false
+     */
+    public function test_connection() {
+        $tiihost = str_replace('https://', '', $this->tiiapiurl);
+
+        if ($connection = @fsockopen($tiihost, 443, $errno, $errstr)) {
+            fclose($connection);
+            return true;
+        }
+        echo 'Error <strong>' . $errno . ': ' . $errstr . '</strong> attempting to connect to host ' . $tiihost;
+
+        return false;
+    }
 }
