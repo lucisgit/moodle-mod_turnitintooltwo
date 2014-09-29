@@ -597,6 +597,11 @@ class turnitintooltwo_user {
         global $DB;
 
         $turnitincomms = new turnitintooltwo_comms();
+
+        // First of all, make sure we can connect to the API.
+        if (!$turnitincomms->test_connection()) {
+            return true;
+        }
         $turnitincall = $turnitincomms->initialise_api();
 
         $user = new TiiUser();
