@@ -602,7 +602,15 @@ class turnitintooltwo_user {
         if (!$turnitincomms->test_connection()) {
             return true;
         }
+
         $turnitincall = $turnitincomms->initialise_api();
+
+        // Next, test the API by attempting to find a class.
+        $class = new TiiClass();
+        $class->setTitle('Test finding a class to see if API works');
+        if (!$apiresponse = $turnitincall->findClasses($class)) {
+            return true;
+        }
 
         $user = new TiiUser();
         $user->setUserId($this->tiiuserid);
